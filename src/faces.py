@@ -17,8 +17,16 @@ while(True):
         print(x,y,w,h)
         # Save the portion of face
         roi_gray = gray[y:y+h, x:x+w]
+        roi_color = gray[y:y+h, x:x+w]
         img_item = "my-image.png"
-        cv2.imwrite(img_item, roi_gray) 
+        cv2.imwrite(img_item, roi_gray)
+        # color of the rectangle
+        color = (255, 0, 0) #BGR 
+        stroke = 2  # how thick do we want the line to actually be 
+        # draw the rectangle
+        end_cord_x = x + w
+        end_cord_y = y + h
+        cv2.rectangle(frame, (x, y), (end_cord_x, end_cord_y), color, stroke)
 
     # Display the resulting frame
     cv2.imshow('frame', frame)

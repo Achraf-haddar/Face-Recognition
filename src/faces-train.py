@@ -35,6 +35,10 @@ for root, dirs, files in os.walk(image_dir):
 
             # Read the image using pillow
             pil_image = Image.open(path).convert("L") # Grayscale
+            # Resize the image
+            size = (500, 500)
+            final_image = pil_image.resize(size, Image.ANTIALIAS)
+            image_array = np.array(final_image, "uint8")
             # Store the image into array
             image_array = np.array(pil_image, 'uint8')
             # Identify faces

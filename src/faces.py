@@ -2,6 +2,9 @@ import numpy as np
 import cv2
 
 face_cascade = cv2.CascadeClassifier('cascades/data/haarcascade_frontalface_alt2.xml')
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+# load the parameters of trained model
+recognizer.read("trainer.yml")
 
 cap = cv2.VideoCapture(0)
 
@@ -17,8 +20,16 @@ while(True):
         # Save the portion of face
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = gray[y:y+h, x:x+w]
+
+        # Recognize 
+        # the label:id_ and the confidence:conf
+        id_, conf = recognizer.predict(roi_gray)
+        if conf>=45 and conf<=85:
+            print(id_)
+        """
         img_item = "my-image.png"
-        cv2.imwrite(img_item, roi_gray)
+        cv2.imwrite(img_item, roi_color)
+        """
         # color of the rectangle
         color = (255, 0, 0) #BGR 
         stroke = 2  # how thick do we want the line to actually be 
